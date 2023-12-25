@@ -36,6 +36,19 @@ const Dashboard = () => {
                         }}><MdAddTask /> Add Task</NavLink></li>
                     </>
                 </ul>
+                <ul className="menu p-4 text-lg">
+                    <>
+                        <li className="font-bold"><NavLink to='/tasklist' style={({ isActive }) => {
+                            return {
+                                color: isActive ? "black" : "white",
+                                backgroundColor: isActive ? "white" : " ",
+                                padding: isActive ? "10px" : " ",
+                                borderRadius: isActive ? "5px" : ""
+
+                            }
+                        }}><MdAddTask />Task list</NavLink></li>
+                    </>
+                </ul>
                 <hr />
                 <ul className="menu p-4 text-lg">
                     <>

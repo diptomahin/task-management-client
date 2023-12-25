@@ -9,6 +9,7 @@ import CreateTask from "../Pages/CreateTask";
 import Login from "../Pages/Login";
 import Register from "../Pages/Register";
 import PrivetRoute from "./PrivateRoute";
+import TaskList from "../Pages/TaskList";
 
 
 const router = createBrowserRouter([
@@ -41,6 +42,10 @@ const router = createBrowserRouter([
         {
             path: "/dashboard",
             element:<PrivetRoute><CreateTask></CreateTask></PrivetRoute>
+        },
+        {
+            path: "/tasklist",
+            element:<PrivetRoute><TaskList></TaskList></PrivetRoute>
         }
       ]
     },
