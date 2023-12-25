@@ -8,7 +8,17 @@ import 'swiper/css/navigation';
 // import required modules
 import { Navigation } from 'swiper/modules';
 
+import AOS from 'aos'
+import 'aos/dist/aos.css'
+import { useEffect } from 'react';
+
+
 const Users = () => {
+
+  useEffect(()=>{
+    AOS.init({duration:2000});
+  },[]);
+
     const users = [
         {
           "id": 1,
@@ -57,7 +67,7 @@ const Users = () => {
         }
        ]
     return (
-        <div className='p-24 min-h-screen text-center bg-gradient-to-r from-[#8C52FF] via-purple-500 to-[#00BF63] font-semibold  '>
+        <div  data-aos="fade-down" className='p-24 min-h-screen text-center bg-gradient-to-r from-[#8C52FF] via-purple-500 to-[#00BF63] font-semibold  '>
         <h1 className='text-5xl drop-shadow-lg text-white bg-gradient-to-r from-[#8C52FF] via-purple-500 to-[#00BF63] font-semibold py-3 my-5 '>Our Users</h1>
         <Swiper navigation={true} modules={[Navigation]} className="mySwiper rounded-lg drop-shadow-2xl">
         {

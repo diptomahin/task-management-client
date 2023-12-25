@@ -33,7 +33,7 @@ const NavBar = () => {
         backgroundColor: isActive ? "white" : "",
 
       };
-    }} to="/dashboard">dashboard</NavLink></li>
+    }} to="/dashboard/task">dashboard</NavLink></li>
     <li className="text-lg font-semibold"><NavLink style={({ isActive }) => {
       return {
         color: isActive ? "#1E2C1A" : "white",

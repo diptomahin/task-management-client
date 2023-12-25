@@ -8,7 +8,8 @@ const CreateTask = () => {
     console.log(user)
     const { register, handleSubmit } = useForm()
     const onSubmit = (data) => {
-        const task={...data, email:user.email}
+        const status= "to-do";
+        const task={...data, status, email:user.email}
         console.log(task)
         fetch("http://localhost:5000/tasks", {
             method: "POST",
@@ -20,6 +21,7 @@ const CreateTask = () => {
             .then((res) => res.json())
             .then((data) => {
                 console.log(data);
+
                 if(data.insertedId){
                     Swal.fire({
                         title: 'Success!!',

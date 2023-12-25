@@ -40,12 +40,13 @@ const router = createBrowserRouter([
       element: <Dashboard></Dashboard>,
       children:[
         {
-            path: "/dashboard",
+            path: "/dashboard/task",
             element:<PrivetRoute><CreateTask></CreateTask></PrivetRoute>
         },
         {
-            path: "/tasklist",
-            element:<PrivetRoute><TaskList></TaskList></PrivetRoute>
+            path: "/dashboard/tasklist",
+            element:<PrivetRoute><TaskList></TaskList></PrivetRoute>,
+            loader :()=> fetch('http://localhost:5000/tasks')
         }
       ]
     },
