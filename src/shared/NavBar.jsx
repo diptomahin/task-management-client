@@ -1,7 +1,24 @@
+import { useContext } from "react";
 import { Link, NavLink } from "react-router-dom";
-
+import { AuthContext } from "../Providers/AuthProvider";
+import Swal from 'sweetalert2';
 const NavBar = () => {
-  const user = null;
+  const { user, logOut } = useContext(AuthContext);
+
+  const handleSignOut = () => {
+      logOut()
+      .then(
+        Swal.fire({
+          position: 'top-end',
+          icon: 'success',
+          title: 'Logged out successfully.',
+          showConfirmButton: false,
+          timer: 1500
+      }),
+      )
+          .catch()
+  }
+
   const NavLinks = <>
     <li className="text-lg font-semibold"><NavLink style={({ isActive }) => {
       return {
@@ -55,11 +72,14 @@ const NavBar = () => {
             <div className="dropdown dropdown-end">
               <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
                 <div className="w-14 rounded-full">
-                  <img alt="Tailwind CSS Navbar component" src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+                  <img alt="user image" src={user?.photoURL} />
                 </div>
               </div>
               <ul tabIndex={0} className="menu menu-sm dropdown-content text-white mt-3 z-[1] p-2 shadow bg-gradient-to-r from-[#8C52FF] via-purple-500 to-[#00BF63] rounded-box w-52">
-                <li><a className="hover:bg-white hover:text-purple-500">Logout</a></li>
+                <li className="py-2">{user?.displayName}</li>
+                <li className="py-2">{user.email}</li>
+                <hr />
+                <li onClick={handleSignOut}><a className="hover:bg-white hover:text-purple-500">Logout</a></li>
               </ul>
             </div>
             :
