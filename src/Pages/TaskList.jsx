@@ -1,14 +1,10 @@
 import { useContext, useEffect, useState } from "react";
 import { MdDelete } from "react-icons/md";
-import { useLoaderData } from "react-router-dom";
 import { AuthContext } from "../Providers/AuthProvider";
 import Swal from "sweetalert2";
-import { useForm } from "react-hook-form";
-import { DragDropContext } from 'react-beautiful-dnd';
 
 const TaskList = () => {
     const { user } = useContext(AuthContext);
-    const { register, handleSubmit } = useForm()
     const [allTasks, setAll] = useState([]);
     const [toDo, setToDo] = useState([]);
     const [ongoing, setOngoing] = useState([]);
@@ -33,6 +29,7 @@ const TaskList = () => {
     console.log(toDo)
     console.log(ongoing)
     console.log(completed)
+
     const handleDelete = _id => {
         console.log(_id);
         Swal.fire({
@@ -70,31 +67,66 @@ const TaskList = () => {
     }
 
 
-    const onSubmit = (data) => {
-        const status = "to-do";
-        const updatedTask = { ...data, status, email: user.email }
-        console.log(updatedTask)
-        //     fetch(`http://localhost:5000/tasks/${tas_id}`, {
-        //    method: "PATCH", 
-        //    headers: {
-        //     'content-type' : 'application/json'
-        //    },
-        //    body: JSON.stringify(updatedTask)
-        // })
-        // .then(res=>res.json())
-        // .then(data=>{
-        //     console.log(data)
-        //     if(data.modifiedCount){
-        //         Swal.fire({
-        //             title: 'Success!',
-        //             text: 'Booking Updated',
-        //             icon: 'success',
-        //             confirmButtonText: 'Done'
-        //           })
-        //     }
-        // })
+    const handleUpdate=(event, task)=>{
 
-    }
+        event.preventDefault();
+        const form = event.target;
+        const title = form.title.value;
+        const priority = form.priority.value;
+        const deadline =form.deadline.value;
+        const description = form.description.value;
+        const email = task.email;
+        const status = task.status
+        const updatedTask = {title, priority, deadline, description, email, status}
+        console.log(updatedTask)
+        // fetch(`http://localhost:5000/tasks/${task._id}`), {
+        //        method: "PATCH", 
+        //        headers: {
+        //         'content-type' : 'application/json'
+        //        },
+        //        body: JSON.stringify(updatedBooking)
+        //     })
+        //     .then(res=>res.json())
+        //     .then(data=>{
+        //         console.log(data)
+        //         if(data.modifiedCount){
+        //             Swal.fire({
+        //                 title: 'Success!',
+        //                 text: 'Booking Updated',
+        //                 icon: 'success',
+        //                 confirmButtonText: 'Done'
+        //               })
+        //         }
+        //     })
+        
+      }
+
+
+    // const handleUpdate = (data) => {
+    //     const status = "to-do";
+    //     const updatedTask = { ...data, status, email: user.email }
+    //     console.log(updatedTask)
+    //     //     fetch(`http://localhost:5000/tasks/${task._id}`, {
+    //     //    method: "PATCH", 
+    //     //    headers: {
+    //     //     'content-type' : 'application/json'
+    //     //    },
+    //     //    body: JSON.stringify(updatedTask)
+    //     // })
+    //     // .then(res=>res.json())
+    //     // .then(data=>{
+    //     //     console.log(data)
+    //     //     if(data.modifiedCount){
+    //     //         Swal.fire({
+    //     //             title: 'Success!',
+    //     //             text: 'Booking Updated',
+    //     //             icon: 'success',
+    //     //             confirmButtonText: 'Done'
+    //     //           })
+    //     //     }
+    //     // })
+
+    // }
 
 
 
@@ -121,7 +153,7 @@ const TaskList = () => {
                         toDo.map(task =>
                             <tbody key={task._id}>
                                 <tr>
-                                    <th onClick={() => handleDelete(task._id)} className="text-xl btn">
+                                    <th onClick={() => handleDelete(task)} className="text-xl btn">
                                         <MdDelete className="" />
                                     </th>
                                     <td>{task.title}</td>
@@ -135,19 +167,19 @@ const TaskList = () => {
                                     <div className="modal" role="dialog">
                                         <div className="modal-box">
                                             <div>
-                                                <form onSubmit={handleSubmit(onSubmit)}>
+                                                <form onSubmit={()=>handleUpdate(task._id)}>
                                                     <label className="form-control w-full py-5">
                                                         <div className="label">
                                                             <span className="label-text  text-xl font-semibold">Task Title</span>
                                                         </div>
-                                                        <input {...register("title")} type="text"   className="input input-bordered w-full " />
+                                                        <input name="title" type="text"   className="input input-bordered w-full " />
                                                     </label>
                                                     <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
                                                         <label className="form-control w-full ">
                                                             <div className="label">
                                                                 <span className="label-text  text-xl font-semibold">Priority</span>
                                                             </div>
-                                                            <select {...register("priority")} defaultValue={task.priority} className="select select-bordered w-full">
+                                                            <select name="priority" defaultValue={task.priority} className="select select-bordered w-full">
                                                                 <option disabled selected>Select Task Priority</option>
                                                                 <option value="low">low</option>
                                                                 <option value="moderate">moderate</option>
@@ -158,14 +190,14 @@ const TaskList = () => {
                                                             <div className="label">
                                                                 <span className="label-text  text-xl font-semibold">Deadline</span>
                                                             </div>
-                                                            <input {...register("deadline")} type="date"  defaultValue={task.deadline} className="input input-bordered w-full " />
+                                                            <input name="deadline" type="date"  defaultValue={task.deadline} className="input input-bordered w-full " />
                                                         </label>
                                                     </div>
                                                     <label className="form-control py-5">
                                                         <div className="label">
                                                             <span className="label-text text-xl font-semibold">Task description</span>
                                                         </div>
-                                                        <textarea  {...register("description")} defaultValue={task.description} className="textarea textarea-bordered h-32" placeholder="Task description"></textarea>
+                                                        <textarea  name="description" defaultValue={task.description} className="textarea textarea-bordered h-32" placeholder="Task description"></textarea>
                                                     </label>
                                                     <div className='text-center'>
                                                         <input className='btn bg-slate-700 text-white hover:bg-gradient-to-r from-[#8C52FF] via-purple-500 to-[#00BF63] hover:text-white' type="submit" />
