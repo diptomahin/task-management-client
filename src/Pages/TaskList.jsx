@@ -11,7 +11,7 @@ const TaskList = () => {
     const [completed, setCompleted] = useState([]);
 
     useEffect(() => {
-        fetch(`http://localhost:5000/tasks?email=${user?.email}`)
+        fetch(`https://y-ashy-delta.vercel.app/tasks?email=${user?.email}`)
             .then(res => res.json())
             .then(data => setAll(data))
     }
@@ -45,7 +45,7 @@ const TaskList = () => {
             if (result.isConfirmed == true) {
 
 
-                fetch(`http://localhost:5000/tasks/${_id}`, {
+                fetch(`https://y-ashy-delta.vercel.app/tasks/${_id}`, {
                     method: 'DELETE'
                 })
                     .then(res => res.json())

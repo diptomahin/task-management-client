@@ -11,7 +11,7 @@ const CreateTask = () => {
         const status= "to-do";
         const task={...data, status, email:user.email}
         console.log(task)
-        fetch("http://localhost:5000/tasks", {
+        fetch("https://y-ashy-delta.vercel.app/tasks", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
