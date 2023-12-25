@@ -1,7 +1,7 @@
 import { Link, NavLink } from "react-router-dom";
 
 const NavBar = () => {
-  const user = true
+  const user = null;
   const NavLinks = <>
     <li className="text-lg font-semibold"><NavLink style={({ isActive }) => {
       return {
@@ -63,7 +63,7 @@ const NavBar = () => {
               </ul>
             </div>
             :
-            <button className="text-lg font-semibold text-white btn bg-[#00BF63] "><Link to="/">Login</Link></button>
+            <button className="text-lg font-semibold text-white btn bg-[#00BF63] "><Link to="login">Login</Link></button>
         }
       </div>
     </div>
